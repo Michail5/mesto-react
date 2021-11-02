@@ -39,7 +39,7 @@ function Main(props) {
   function CardList(props) {
     const cards = props.cards;
     const listCards = cards.map((card) =>
-      <Card card={card} onCardClick={props.onFunctionClick} />
+      <Card card={card} key={card._id} onCardClick={props.onFunctionClick} />
     );
     return (
       <ul className="elements__list">
