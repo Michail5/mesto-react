@@ -3,9 +3,9 @@ import API, { apiData } from '../utils/Api';
 import Card from './Card';
 
 function Main(props) {
-  const [userName, handleGetUserName] = React.useState(null);
-  const [userDescription, handleGetUserDescription] = React.useState(null);
-  const [userAvatar, handleGetUserAvatar] = React.useState(null);
+  const [userName, handleGetUserName] = React.useState([]);
+  const [userDescription, handleGetUserDescription] = React.useState([]);
+  const [userAvatar, handleGetUserAvatar] = React.useState([]);
   const [cards, setCards] = React.useState([]);
 
 
@@ -20,7 +20,6 @@ function Main(props) {
     })
     .catch((err) => {
       console.log(err); // "Что-то пошло не так: ..."
-      return [];
     })
   }, []);
 
@@ -32,15 +31,14 @@ function Main(props) {
     })
     .catch((err) => {
       console.log(err); // "Что-то пошло не так: ..."
-      return [];
     })
   }, []);
 
   function CardList(props) {
     const cards = props.cards;
-    const listCards = cards.map((card) => (
-      <Card card={card} onCardClick={props.onFunctionClick} key={card._id}/>
-    ));
+    const listCards = cards.map((card,i) =>
+      <Card card={card} onCardClick={props.onCardClick} key={card._id} />
+    );
     return (
       <ul className="elements__list">
         {listCards}
@@ -75,7 +73,7 @@ function Main(props) {
           className="profile__add-button" 
           />
         </section>
-            <CardList cards={cards} onFunctionClick={props.onCardClick}/>
+        <CardList cards={cards} onCardClick={props.onCardClick}/>
       </main>
     )
 }
