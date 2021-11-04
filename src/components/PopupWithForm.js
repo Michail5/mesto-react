@@ -1,6 +1,13 @@
 import React from "react";
 
 class PopupWithForm extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      submitted: false,
+  };
+
+  }
  
   handleSubmit = () => {
     this.setState({ submitted: true });
