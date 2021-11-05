@@ -3,9 +3,9 @@ import API, { apiData } from '../utils/Api';
 import Card from './Card';
 
 function Main(props) {
-  const [userName, handleGetUserName] = React.useState([]);
-  const [userDescription, handleGetUserDescription] = React.useState([]);
-  const [userAvatar, handleGetUserAvatar] = React.useState([]);
+  const [userName, handleGetUserName] = React.useState('');
+  const [userDescription, handleGetUserDescription] = React.useState('');
+  const [userAvatar, handleGetUserAvatar] = React.useState('');
   const [cards, setCards] = React.useState([]);
 
 
@@ -36,13 +36,13 @@ function Main(props) {
 
   function CardList(props) {
     const cards = props.cards;
-    const listCards = cards.map((card,i) =>
-      <Card card={card} onCardClick={props.onCardClick} key={card._id} />
-    );
+    
     return (
       <ul className="elements__list">
-        {listCards}
-      </ul>
+      {cards.map((card) =>
+         <Card card={card} key={card._id} onCardClick={props.onCardClick} />
+       )}
+</ul> 
     );
   }
     return(
