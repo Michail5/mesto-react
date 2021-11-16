@@ -1,24 +1,27 @@
 {
-  "name": "mesto-react",
-  "homepage":"https://github.com/Michail5/mesto-react",
+  "name": "mesto",
   "version": "0.1.0",
   "private": true,
+  "author": "Michael Yakovlev",
+  "description": "------\r ### Обзор\r Страница/профиль с карточками мест, отмеченных ползователем.  \r На странице использованы flex- и grid- технологии, адаптивная верстка, \r реализован попап и форма внесения данных пользователя.",
+  "homepage": "https://github.com/Michail5/mesto-react",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^6.0.0",
     "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "gh-pages": "^3.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "npm run build && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -37,5 +40,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "css-loader": "^6.5.0",
+    "gh-pages": "^3.2.3"
   }
 }
