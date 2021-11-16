@@ -6,18 +6,18 @@ function Card(props) {
   handleLikeClick = handleLikeClick.bind(this);
   handleDeleteClick = handleDeleteClick.bind(this);
 
-  
+  // Определяем, являемся ли мы владельцем текущей карточки
   const isOwn = props.card.owner._id === props.currentUser._id;
 
-  
+  // Создаём переменную, которую после зададим в `className` для кнопки удаления
   const cardDeleteButtonClassName = (
   ` ${isOwn ? 'element__remove-button' : 'element__remove-button_hidden'}`
   ); 
 
-  
+  // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
   const isLiked = props.card.likes.some(i => i._id === props.currentUser._id);
 
-
+  // Создаём переменную, которую после зададим в `className` для кнопки лайка
   const cardLikeButtonClassName = (
     `element__heart-button  ${isLiked ? 'element__heart-button-active' : ' '}`
   );
