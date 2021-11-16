@@ -2,20 +2,24 @@ import React from 'react';
 
 class ImagePopup extends React.Component {
 
+  render() {
+    if (this.props.card !== null ) { 
+      return (
+        <section className="popup popup_img popup_is-opened">
+          <div className="popup__content popup__content_img" >
+            <button className="popup__close popup__close_img" type="button" onClick={this.props.onClosePopup}></button>
+            <img src={this.props.card.link} alt={this.props.card.name} className="popup__image" /> 
+            <h3 className="popup__title popup__title_img">{this.props.card.name}</h3> 
+          </div>
+        </section>
+      );
+     } else {
+        // для плавного открытия попапа
+        return (
+          <section className="popup popup_img"></section>
+        );
+    } 
+  }
+}
 
-
-render(){
-
-  return ( 
-    this.props.card !== null ? (
-      <section className="popup popup_type_image popup_opened" id="image-viewer">
-      <figure className="popup__figure">
-        <button type="button" onClick={this.props.onClosePopup} className="popup__close-button popup__close-button_parent-corners_straight"/>
-        <img className="popup__image" src={this.props.card?.link} alt={this.props.card?.name} />
-        <figcaption className="popup__caption">{this.props.card?.name}</figcaption>
-      </figure>
-    </section>
-    ) : null
-)} 
-    }
-export default ImagePopup;
+export default ImagePopup; 

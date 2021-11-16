@@ -1,31 +1,24 @@
-import React from "react";
+import React from 'react';
 
-class PopupWithForm extends React.Component{
-  constructor(props) {
-    super(props);
-    this.state = {
-      submitted: false,
-  };
+class PopupWithForm extends React.Component {
 
-  }
- 
   handleSubmit = () => {
     this.setState({ submitted: true });
   };
 
-  render(){
-    return(
-    <section className={`popup ${this.props.isOpen ? 'popup_opened' : ''}`} id={`${this.props.name}-editor`}>
-        <div className="popup__container">
-            <button type="reset" className="popup__close-button" onClick={this.props.onClosePopup}/>
-            <h2 className="popup__title">{this.props.title}</h2>
-            <form className="popup__form" >
+  render() {
+    return (
+      <section className={`popup popup-${this.props.name} ${this.props.isOpen ? 'popup_is-opened' : ''}`} >
+        <div className={`popup__content popup__content_${this.props.name}`} >
+          <button className={`popup__close popup__close-${this.props.name}`}  type="button" onClick={this.props.onClosePopup}></button>
+          <h3 className="popup__title">{this.props.title}</h3>
+          <form className={`popup__form popup__form_${this.props.name}`} name="submit-user" onSubmit={this.props.onSubmit}>
             {this.props.children} 
-            <button type="submit" className="popup__button">{this.props.buttonName}</button>
-            </form>
+          </form>
         </div>
-    </section> 
-    )
+      </section>
+    );
   }
 }
-export default PopupWithForm;
+
+export default PopupWithForm; 

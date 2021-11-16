@@ -1,38 +1,43 @@
-import {token} from "../utils/constants";
-import {apiUrl} from "../utils/constants";
+import { 
+  baseUrl,
+  baseToken } from "../utils/constant";
 
-class API {
+ class API {
 
   constructor(url,token) {
     this._url = url;
     this._token = token;
   }
 
-  _checkResponse(res){
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Что-то пошло не так: ${res.status}`);
-  }
-  // метод инициализации карточек
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       headers: {
         authorization: this._token
       }
-    }).then(this._checkResponse)
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    });
   }
 
-    // метод инициализации данных пользователя
   getUserData() {
     return fetch(`${this._url}/users/me`, {
       headers: {
         authorization: this._token
       }
-    }).then(this._checkResponse)
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    });
   }
 
-    // сохранение на сервере отредактированных данных пользователя
   setUserData({name, about}) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
@@ -41,10 +46,16 @@ class API {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({name, about})
-    }).then(this._checkResponse)
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    }); 
   }
 
-    // добавление на сервере новой карточки
   postCard(data) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
@@ -56,39 +67,66 @@ class API {
         name: data.name,
         link: data.link
       })
-    }).then(this._checkResponse)
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    // отклоняем промис
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    }); 
   }
 
-  // метод удаления карточек
   deleteCard(idCard) {
     return fetch(`${this._url}/cards/${idCard}`, {
       method: 'DELETE',
       headers: {
         authorization: this._token
       }
-    }).then(this._checkResponse)
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    });
   }
 
-  // ставим лайк карточке
+
   changeLikeCardStatus(idCard,like){
     return fetch(`${this._url}/cards/likes/${idCard}`, {
       method: like ? 'DELETE' : 'PUT',
       headers: {
         authorization: this._token
       }
-    }).then(this._checkResponse)
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+    }
+
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    });
   }
 
-  // метод получения данных карточки
+
   getCard(idCard) {
     return fetch(`${this._url}/cards/${idCard}`, {
       headers: {
         authorization: this._token
       }
-    }).then(this._checkResponse)
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    });
   }
 
-  // метод для обновления аватара пользователя
+
   patchAvatar(data) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
@@ -97,13 +135,18 @@ class API {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        avatar: data.link
+        avatar: data.avatar
       })
-    }).then(this._checkResponse)
-  }
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
 
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    });
+  }
 }
 
-// экземпляр класса для работы с сервером
-// API для получение данных
-export const apiData = new API(apiUrl,token); 
+
+export const apiData = new API(baseUrl,baseToken);

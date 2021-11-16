@@ -1,29 +1,52 @@
-import React from "react";
-class Card extends React.Component{
-    constructor(props){
-        super(props);
-        this.card = this.props.card;
-        this.handleClick = this.handleClick.bind(this);
-    }
-    handleClick()  {
-        this.props.onCardClick(this.card);
-      }
+import React from 'react';
 
-      render(){
-          return(
-            <li className="element">
-                <img  src={this.card.link} alt={this.card.name} className="element__image" onClick={() => this.handleClick()}/>
-                <button type="reset" className="element__trash-button"></button>
-                <div className="element__container">
-                    <h2 className="element__title">{this.card.name}</h2>
-                    <div className="element__likes">
-                        <button type="button" className="element__like-button"></button>
-                    <p className="element__like-counter">{this.card.likes.length}</p>
-                    </div>
-                </div>
-            </li>
-          )
-      }
+function Card(props) {
+
+  handleClick = handleClick.bind(this);
+  handleLikeClick = handleLikeClick.bind(this);
+  handleDeleteClick = handleDeleteClick.bind(this);
+
+  
+  const isOwn = props.card.owner._id === props.currentUser._id;
+
+  
+  const cardDeleteButtonClassName = (
+  ` ${isOwn ? 'element__remove-button' : 'element__remove-button_hidden'}`
+  ); 
+
+  
+  const isLiked = props.card.likes.some(i => i._id === props.currentUser._id);
+
+
+  const cardLikeButtonClassName = (
+    `element__heart-button  ${isLiked ? 'element__heart-button-active' : ' '}`
+  );
+
+  function handleClick() {
+    props.onCardClick(props.card);
+  } 
+
+  function handleLikeClick()  {
+    props.onCardLike(props.card, props.currentUser,  props.setCards);
+  }
+
+  function handleDeleteClick()  {
+    props.onCardDelete(props.card,  props.setCards);
+  }
+
+  return(
+    <article className="element">
+      <img src={props.card.link} alt={props.card.name} className="element__image"  onClick={handleClick} />
+      <button className={cardDeleteButtonClassName}  type="button" onClick={handleDeleteClick}></button>
+      <div className="element__title-block">
+        <p className="element__title">{props.card.name}</p>
+        <div className="element__likes">
+          <button className={cardLikeButtonClassName}  type="button" onClick={handleLikeClick}></button>
+          <p className="element__likes-number">{props.card.likes.length}</p>
+        </div>
+      </div>
+    </article>
+  );
 }
 
-export default Card;
+export default Card; 

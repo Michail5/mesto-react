@@ -1,73 +1,50 @@
-import React from 'react';
-import API, { apiData } from '../utils/Api';
+import React from 'react'; 
 import Card from './Card';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import {CurrentCardsContext}  from '../contexts/CurrentCardsContext'
 
 function Main(props) {
-  const [userName, handleGetUserName] = React.useState('');
-  const [userDescription, handleGetUserDescription] = React.useState('');
-  const [userAvatar, handleGetUserAvatar] = React.useState('');
-  const [cards, setCards] = React.useState([]);
 
+ 
+  const userData = React.useContext(CurrentUserContext);
+  
+  const cardsData = React.useContext(CurrentCardsContext);
 
-
-  React.useEffect(() => {
-    // запрос в API за пользовательскими данными
-    apiData.getUserData()
-      .then(res => {
-        handleGetUserName(res.name);
-        handleGetUserDescription(res.about);
-        handleGetUserAvatar(res.avatar);
-      })
-      .catch((err) => {
-        console.log(err); // "Что-то пошло не так: ..."
-      })
-  }, []);
-
-  React.useEffect(() => {
-    // запрос в API за карточками мест
-    apiData.getInitialCards()
-      .then(items => {
-        setCards(items);
-      })
-      .catch((err) => {
-        console.log(err); // "Что-то пошло не так: ..."
-      })
-  }, []);
+  function CardList(props) {
+    const cards = props.cards;
+    const listCards = cards.map((card) =>
+      <Card card={card} onCardClick={props.onCardClick} key={card._id} 
+        currentUser={userData} onCardLike={props.onCardLike} setCards={props.setCards}
+        onCardDelete={props.onCardDelete}/>
+    );
+    return (
+      <section className="elements">
+        {listCards}
+      </section>
+    );  
+  }
 
   return (
-    <main className="content">
+    <main>
       <section className="profile">
-        <div
-          onClick={props.onEditAvatar}
-          className="profile__avatar-container"
-        >
-          <img
-            src={userAvatar}
-            alt="Жак-Ив Кусто"
-            className="profile__avatar"
-          />
+        <div className="profile__avatar-conteiner">
+          <div className="profile__avatar-overlay" onClick={props.onEditAvatar}></div>
+          <img src={userData.avatar} alt={userData.name} className="profile__avatar"  />
+          <button className="profile__avatar-button" onClick={props.onEditAvatar}></button>
         </div>
         <div className="profile__info">
-          <h1 className="profile__name">{userName}</h1>
-          <p className="profile__description">{userDescription}</p>
-          <button
-            onClick={props.onEditProfile}
-            type="button"
-            className="profile__edit-button"
-          />
+          <div className="profile__title-block">
+            <h1 className="profile__title">{userData.name}</h1>
+            <button className="profile__edit-button" type="button"  onClick={props.onEditProfile}></button>
+          </div>
+          <p className="profile__text">{userData.about}</p>
         </div>
-        <button
-          onClick={props.onAddPlace}
-          type="button"
-          className="profile__add-button"
-        />
+        <button className="profile__add-button" type="button"  onClick={props.onAddPlace}></button>
       </section>
-  <ul className="elements__list">
-        {cards.map((card) => (
-          <Card card={card} key={card._id} onCardClick={props.onCardClick} />
-        ))}
-      </ul>
+     <CardList cards={cardsData} onCardClick={props.onCardClick} onCardLike={props.onCardLike} setCards={props.setCards} onCardDelete={props.onCardDelete}/>  
     </main>
-  )
+  );
 }
+
 export default Main;
+
