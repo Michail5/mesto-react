@@ -5,9 +5,9 @@ import {CurrentCardsContext}  from '../contexts/CurrentCardsContext'
 
 function Main(props) {
 
-   // Подписываемся на контекст CurrentUserContext
+ 
   const userData = React.useContext(CurrentUserContext);
-  // Подписываемся на контекст CurrentCardsContext
+  
   const cardsData = React.useContext(CurrentCardsContext);
 
   function CardList(props) {

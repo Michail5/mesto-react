@@ -5,9 +5,9 @@ import {CurrentCardsContext}  from '../contexts/CurrentCardsContext'
 
 function AddPlacePopup(props) {
 
-  
+
   const currentUser = React.useContext(CurrentUserContext);
- // Подписываемся на контекст CurrentCardsContext
+
   const cardsData = React.useContext(CurrentCardsContext);
  // Стейт, в котором содержится значение инпута
   const [namePlace, setNamePlace] = React.useState('');
@@ -23,9 +23,9 @@ function AddPlacePopup(props) {
   }
 
   function handleSubmit(e) {
-    // Запрещаем браузеру переходить по адресу формы
+
     e.preventDefault();
-    // Передаём значения управляемых компонентов во внешний обработчик
+  
     props.onAddPlace({
       name: namePlace,
       link: linkPlace
