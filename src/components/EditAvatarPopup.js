@@ -1,18 +1,45 @@
-import React from "react";
-import PopupWithForm from "./PopupWithForm";
+import React from 'react';
+import PopupWithForm from './PopupWithForm';
 
-const [isEditAvatarPopupOpen, handleEditAvatarPopupOpen] = React.useState(false);
-
-function handleEditAvatarClick() {
-    handleEditAvatarPopupOpen(true);
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
+  const [buttonTitle, setButtonTitle] = React.useState('Сохранить');
+  const link = React.useRef();
+  const resetInput = () => {
+    link.current.value = '';
+    setButtonTitle('Сохранить');
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setButtonTitle('Обработка...');
+    onUpdateAvatar({
+      avatar: link.current.value,
+    })
+      .then(() => resetInput())
+      .catch(() => setButtonTitle('Ошибка!'));
   };
 
-function EditAvatarPopup(props, enabled) {
-return(
-    <PopupWithForm name='avatar' title='Обновить аватар' isOpen={isEditAvatarPopupOpen} onClosePopup={closeAllPopups} buttonName='Сохранить'>
-        <input type="url" className="popup__input" name="link" id="profile-avatar" placeholder="Ссылка на картинку" required />
-        <p className="popup__error" id="profile-avatar-error" />
+  return (
+    <PopupWithForm
+      name="avatarForm"
+      title="Обновить аватар"
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      btnCaption={buttonTitle}
+    >
+      <input
+        id="inputLink"
+        className="popup__input"
+        name="link"
+        type="url"
+        title="укажите путь"
+        ref={link}
+        placeholder="Ссылка на картинку"
+        required
+      />
+      <span id="inputLink-error" className="popup__error" />
     </PopupWithForm>
-);
+  );
 }
+
 export default EditAvatarPopup;

@@ -1,18 +1,16 @@
 .header__logo {
-    margin: 0;
-    margin-bottom: 41px;
-    max-width: 142px;
+  max-width: 142px;
+  height: 33px;
+  background-image: url(../../../images/logo.svg);
+  background-position: center;
+  background-size: cover;
+  margin-bottom: 41px;
 }
 
-@media screen and (max-width: 950px) {
-    .header__logo {
-        margin-left: 25px;
-    }
-}
-
-@media screen and (max-width: 400px) {
-    .header__logo {
-        margin-bottom: 25px;
-        max-width: 105px;
-    }
+@media screen and (max-width: 500px) {
+  .header__logo {
+    max-width: 103.74px;
+    height: 24.4px;
+    margin: 0 0 31.6px 8px;
+  }
 }

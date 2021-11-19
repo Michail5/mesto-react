@@ -1,10 +1,9 @@
-// Пути к изображениям внутри сборки
-import logoPath from '../images/logo.svg'; 
+import React from 'react';
 
 function Header() {
   return (
     <header className="header">
-      <a href="#" className="header__link"><img src={logoPath} alt="Логотип" className="header__logo"/></a>
+      <div className="header__logo" title="Mesto" />
     </header>
   );
 }

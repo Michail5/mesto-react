@@ -1,9 +1,9 @@
 .profile__avatar-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.0); /* Настройка цвета и прозрачности для блока с заголовком */
-    transition: background 0.5s ease;
-  }
+  background-image: url(../../../images/pen.svg);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
+  cursor: pointer;
+}

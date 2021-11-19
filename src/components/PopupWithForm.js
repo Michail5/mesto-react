@@ -1,24 +1,32 @@
 import React from 'react';
 
-class PopupWithForm extends React.Component {
+function PopupWithForm({ title, name, children, isOpen, onClose, btnCaption, onSubmit }) {
+  const handleOverlayClick = (evt) => evt.target === evt.currentTarget && onClose();
 
-  handleSubmit = () => {
-    this.setState({ submitted: true });
-  };
-
-  render() {
-    return (
-      <section className={`popup popup-${this.props.name} ${this.props.isOpen ? 'popup_is-opened' : ''}`} >
-        <div className={`popup__content popup__content_${this.props.name}`} >
-          <button className={`popup__close popup__close-${this.props.name}`}  type="button" onClick={this.props.onClosePopup}></button>
-          <h3 className="popup__title">{this.props.title}</h3>
-          <form className={`popup__form popup__form_${this.props.name}`} name="submit-user" onSubmit={this.props.onSubmit}>
-            {this.props.children} 
-          </form>
+  return (
+    <div
+      id={name}
+      className={`popup ${isOpen ? 'popup_opened' : ''}`}
+      role="presentation"
+      onClick={handleOverlayClick}
+    >
+      <form className="popup__container popup__container_data" name={name} onSubmit={onSubmit}>
+        <div className="popup__window">
+          <button
+            className="popup__close-button"
+            type="button"
+            name="closePopup"
+            onClick={onClose}
+          />
+          <h2 className="popup__title">{title}</h2>
+          {children}
+          <button className="popup__submit-button" type="submit" name="submitPopup">
+            {btnCaption}
+          </button>
         </div>
-      </section>
-    );
-  }
+      </form>
+    </div>
+  );
 }
 
-export default PopupWithForm; 
+export default PopupWithForm;
