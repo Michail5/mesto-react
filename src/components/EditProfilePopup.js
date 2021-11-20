@@ -3,7 +3,7 @@ import PopupWithForm from './PopupWithForm';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
-  const currentUser = React.useContext(CurrentUserContext);
+  const currentUser = React.useContext(CurrentUserContext);//А как получать данные юзера, они же через подписку на контекст
   const [buttonTitle, setButtonTitle] = useState('Сохранить');
   const [name, setName] = useState(currentUser.name);
   const [description, setDescription] = useState(currentUser.about);
