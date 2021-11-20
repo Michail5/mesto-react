@@ -5,7 +5,17 @@
   border-radius: 10px 10px 0 0;
   user-select: none;
 }
-
+.card__image:after {
+  content: "\f127" " Битая картинка " attr(alt);
+  display: block;
+  font-size: 16px;
+  font-style: normal;
+  font-family: FontAwesome;
+  color: rgb(100, 100, 100);
+  margin-bottom: 250px;
+  
+ 
+}
 @media screen and (max-width: 700px) {
   .card__image {
     width: 340px;
