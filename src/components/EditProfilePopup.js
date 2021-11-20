@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
-import CurrentUserContext from '../contexts/CurrentUserContext';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
-  const currentUser = useContext(CurrentUserContext);
+  const currentUser = React.useContext(CurrentUserContext);
   const [buttonTitle, setButtonTitle] = useState('Сохранить');
   const [name, setName] = useState(currentUser.name);
   const [description, setDescription] = useState(currentUser.about);

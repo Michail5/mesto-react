@@ -8,7 +8,7 @@ import AddPlacePopup from './AddPlacePopup';
 import DeletePlacePopup from './DeletePlacePopup';
 import ImagePopup from './ImagePopup';
 import api from '../utils/api';
-import CurrentUserContext from '../contexts/CurrentUserContext';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 function App() {
   const [editProfilePopupState, setEditProfilePopupState] = useState(false);
